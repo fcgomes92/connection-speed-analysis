@@ -13,6 +13,6 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'speed_analysis = speed_analysis.app:main'
+            'speed_analysis = connection_speed_analysis.app:main'
         ]
     })

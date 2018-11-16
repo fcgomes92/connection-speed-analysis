@@ -4,6 +4,7 @@ import argparse
 import csv
 import os
 import speedtest
+from crontab import CronTab
 
 DIRNAME = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(DIRNAME)
@@ -74,7 +75,14 @@ class SpeedAnalysis(object):
         set_cron_parser.set_defaults(command=self.set_cron)
 
     def set_cron(self, **kwargs):
-        pass
+        cron = CronTab(user=True)
+        comment = '_connection_speed_analysis_command'
+        job = cron.find_comment(comment)
+        if job:
+            cron.remove(job)
+        job = cron.new(command=kwargs['cron'], comment=comment)
+        job.setall('0 * * * *')
+        cron.write()
 
     def test_speed(self, **_):
         s = speedtest.Speedtest()
