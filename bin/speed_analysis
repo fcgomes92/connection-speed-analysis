@@ -1,0 +1,4 @@
+#!/bin/bash
+
+BINPATH=`dirname $0`
+python "$BINPATH/../connection_speed_analysis/app.py" $@
